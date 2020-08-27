@@ -88,11 +88,15 @@ Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一�
 4、dev分支工作完成后，把dev分支合并到master主分支上（见picture10）；注：就改改指针，工作区内容也不变！
 5、合并完分支后，可以删除dev分支就是把dev指针给删掉，删掉后，我们就剩下了一条master分支（见picture11）；
 创建、删除、合并分支的指令：
-1、创建并切换到分支：$ git checkout -b dev  注：在cmd界面输入
+1、创建并切换到分支：$ git checkout -b dev或者$ git switch -c dev  注：在cmd界面输入
 注：相当于以下2条指令
 $ git branch dev
 $ git checkout dev
 2、查看当前分支：$ git branch
 3、在当前分支进行文件的修改、提交工作$ git add readme.txt 、$ git commit -m "branch test"
-4、分支切换到主分支$ git checkout master；分支不同的相同文件，文件内容是不同的；（见picture12）
-5、分支合并到主分支上$ git merge dev
+4、分支切换到主分支$ git checkout master或者$ git switch master；分支不同的相同文件，文件内容是不同的；（见picture12）
+5、分支合并到主分支上$ git merge dev；注：合并前需要将分支及主分支上的文件都提交，才能正常合并
+注：Fast-forward信息，Git告诉我们，这次合并是“快进模式”，也就是直接把master指向dev的当前提交，所以合并速度非常快；当然，也不是每次合并都能Fast-forward，我们后面会讲其他方式的合并。
+6、删除分支：$ git branch -d dev
+
+详见网址：https://www.liaoxuefeng.com/wiki/896043488029600/900004111093344
