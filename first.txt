@@ -78,3 +78,21 @@ Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一�
 2、登陆GitHub，创建一个新的仓库，名字叫gitskills：（见picture6）
 3、远程库gitskills已经准备好了，下一步是用命令git clone克隆出一个本地库：git clone https://github.com/Zhang-Feng-Fei/gitskills.git
 注：GitHub给出的地址不止一个，还可以用git@github.com:Zhang-Feng-Fei/gitskills.git，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议，使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
+
+
+分支：
+1、master分支（主分支）。HEAD严格来说不是指向提交，而是指向master，master（主分支）才是指向提交的，所以，HEAD指向的就是当前分支（见picture7）
+2、Git新建了一个指针叫dev（分支），指向master相同的提交，再把HEAD指向dev，HEAD指向当前分支是dev：（见picture8）
+注：Git创建一个分支：增加一个dev指针，改边HEAD的指向
+3、执行分支工作时（见picture9）
+4、dev分支工作完成后，把dev分支合并到master主分支上（见picture10）；注：就改改指针，工作区内容也不变！
+5、合并完分支后，可以删除dev分支就是把dev指针给删掉，删掉后，我们就剩下了一条master分支（见picture11）；
+创建、删除、合并分支的指令：
+1、创建并切换到分支：$ git checkout -b dev  注：在cmd界面输入
+注：相当于以下2条指令
+$ git branch dev
+$ git checkout dev
+2、查看当前分支：$ git branch
+3、在当前分支进行文件的修改、提交工作$ git add readme.txt 、$ git commit -m "branch test"
+4、分支切换到主分支$ git checkout master；分支不同的相同文件，文件内容是不同的；（见picture12）
+5、分支合并到主分支上$ git merge dev
