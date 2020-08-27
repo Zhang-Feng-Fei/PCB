@@ -46,3 +46,26 @@
 
 
 1、只要注册一个GitHub账号，就可以免费获得Git远程仓库；
+2、注册GitHub账号；
+3、本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，需要以下操作：
+1）创建SSH Key：打开Shell（Windows下打开Git Bash），敲击指令：$ ssh-keygen -t rsa -C "youremail@example.com"；
+注：然后一路回车，使用默认值即可，也无需设置密码；之后用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+2）登陆GitHub，打开“Account settings”，“SSH Keys”页面----点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：（见picture4）
+注：因GitHub需要识别出你推送的提交确实是你推送的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送；当然，GitHub允许你添加多个Key。假定你有若干电脑，你一会儿在公司提交，一会儿在家里提交，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。
+注：GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）；有两个办法让别人看不见：一个是交点保护费，让GitHub把公开的仓库变成私有的，另一个办法是自己动手搭一个Git服务器。
+
+
+添加远程仓库：
+1、登陆GitHub，然后，在右上角找到“Create a new repo”按钮，创建一个新的仓库（见picture5）
+2、在Repository name填入本地仓库的名字，其他保持默认设置，点击“Create repository”按钮；
+1）远程仓库克隆出新的仓库
+2）可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库，在本地的learngit仓库下运行下面的命令
+例子：
+git remote add origin https://github.com/Zhang-Feng-Fei/PCB.git
+git branch -M master
+git push -u origin master
+注：请千万注意，把上面的michaelliao替换成你自己的GitHub账户名，否则，你在本地关联的就是我的远程库，关联没有问题，但是你以后推送是推不上去的，因为你的SSH Key公钥不在我的账户列表中。（这个可以不看）
+注：添加后，远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库。
+注：把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
+注;由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+3）从现在起，只要本地作了提交，就可以通过命令：$ git push origin master
