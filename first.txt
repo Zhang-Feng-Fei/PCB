@@ -7,3 +7,11 @@
 小结
 1、要随时掌握工作区的状态，使用git status命令；
 2、如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+
+小结
+1、HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id；例子：$ git reset --hard HEAD^；
+2、上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100；
+3、回到之后的版本：$ git reset --hard 1094a（版本号）；
+4、穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本；
+5、如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数：$ git log --pretty=oneline；
+6、要重返未来，用git reflog查看操作的命令历史，以便确定要回到未来的哪个版本。
