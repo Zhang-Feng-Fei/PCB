@@ -104,7 +104,7 @@ $ git checkout dev
 3、两个分支相同文件冲突的解决办法：这个时候两个分支修改的内容自动填充进来，用<<<<<<<，=======，>>>>>>>标记出不同分支的内容
 4、这个时候可以修改文件内容与一个分支的文件一致，然后提交不一致的分支；
 5、最后再进行合并（见picture14）
-6、用带参数的git log也可以看到分支的合并情况：$ git log --graph --pretty=oneline --abbrev-commit
+6、用带参数的git log也可以看到分支的合并情况：$ git log --graph --pretty=oneline --abbrev-commit 或git log --pretty=oneline --abbrev-commit
 注：合并了不删除分支还是存在的，不是合并后分支就自动消失了，合并只是把两个分支相同的文件的内容整合到一起
 注：解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交
 
@@ -171,11 +171,34 @@ Rebase
 
 标签：
 1、Git的标签（tag）虽然是版本库的快照，但其实它就是指向某个commit的指针（跟分支很像对不对？但是分支可以移动，标签不能移动）
-2、所以，创建和删除标签都是瞬间完成的。
+2、所以，创建和删除标签都是瞬间完成的；
+作用：快速找到之前版本
+
+创建标签：切换到需要打标签的分支上——打一个新标签（git tag v1.0）
+查看所有标签：git tag
+历史提交的commit id打标签：git tag v0.9 f52c633（需要打标签的commit id）
+查看标签信息：git show v0.9（标签名）
+创建带有说明的标签：git tag -a v0.1 -m "version 0.1 released" 1094adb（-a指定标签名，-m指定说明文字）
+注：默认标签是打在最新提交的commit上的
+注：标签不是按时间顺序列出，而是按字母排序的
+注：如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签
+
+操作标签
+删除标签：git tag -d v0.1
+标签推送到远程：git push origin v1.0
+一次性推送全部尚未推送到远程的本地标签：git push origin --tags
+删除远程标签：先删除本地标签git tag -d v0.9，然后远程删除标签git push origin :refs/tags/v0.9
+注：创建的标签都只存储在本地，不会自动推送到远程
 
 
+使用GitHub
+github上克隆别人开源的项目（仓库）
+1、进入别人的github库，登录自己的github账号，点“Fork”就在自己的github账号下克隆该开源的项目（仓库）（见picture18）
+2、然后要从自己的账号下clone仓库（才能推送修改）：git clone https://github.com/Zhang-Feng-Fei/bootstrap.git
+注：Bootstrap的官方仓库twbs/bootstrap、你在GitHub上克隆的仓库my/bootstrap，以及你自己克隆到本地电脑的仓库，他们的关系（见picture19）
+注：修改了bootstrap后，可自己的bootstrap仓库推送。如果你希望bootstrap的官方库能接受你的修改，你就可以在GitHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了。（见picture20）
 
-
+使用Gitee
 
 
 
