@@ -199,10 +199,14 @@ github上克隆别人开源的项目（仓库）
 注：修改了bootstrap后，可自己的bootstrap仓库推送。如果你希望bootstrap的官方库能接受你的修改，你就可以在GitHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了。（见picture20）
 
 使用Gitee
-
-
-
-
+1、使用国内的Git托管服务——Gitee（gitee.com），解决github慢的问题
+2、Gitee注册登录账号，上传自己的SSH公钥（见picture21）进行关联git remote add origin https://gitee.com/Zhang-Feng-Fei/PCB.git或git remote add origin git@gitee.com:Zhang-Feng-Fei/PCB.git
+如果报错：因本地库已经关联了origin的远程库（该远程库指向GitHub），可以删除已有的GitHub远程库：git remote rm origin，再关联Gitee的远程库
+3、本地库同时关联Gitee、Github远程库：git给远程库起的默认名称是origin，如果有多个远程库，我们需要用不同的名称来标识不同的远程库
+先删除已关联的名为origin的远程库：git remote rm origin
+再关联GitHub的远程库：git remote add github git@github.com:Zhang-Feng-Fei/PCB.git  远程库的名称叫github
+再关联Gitee的远程库：git remote add gitee git@gitee.com:Zhang-Feng-Fei/PCB.git       远程库的名称叫gitee
+4、要推送到Github与Gitee分别指令：git push github master、git push gitee master
 
 
 
