@@ -209,6 +209,19 @@ github上克隆别人开源的项目（仓库）
 4、要推送到Github与Gitee分别指令：git push github master、git push gitee master
 
 
+注：一个本地库多个远程库，见picture23
+
+注：Gitee也同样提供了Pull request功能，可以让其他小伙伴参与到开源项目中来。你可以通过Fork我的仓库：https://gitee.com/liaoxuefeng/learngit，创建一个your-gitee-id.txt的文本文件， 写点自己学习Git的心得，然后推送一个pull request给我，这个仓库会在Gitee和GitHub做双向同步。
+
+
+
+自定义git
+让Git显示颜色：git config --global color.ui true
+
+忽略特殊文件：在Git工作目录中，但又想提交，git status一直有提示怎么办？
+在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件
+
+
 
 
 
