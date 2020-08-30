@@ -3,3 +3,142 @@
 123456   123456
 =======
 >>>>>>> dev
+
+linux软件安装
+https://zhuanlan.zhihu.com/p/142014944
+Ubuntu20.04软件源更换
+舟公
+舟公
+
+    刚开始使用的时候，没有觉得哪里有问题，但是有时候通过命令行下载软件，更新软件，发现有的时候好慢好慢，为了解决，上网查找质料，发现可以通过更换软件源来解决这个问题。
+
+我所推荐的软件源如下：
+
+阿里云开源镜像站：
+阿里巴巴开源镜像站-OPSX镜像站-阿里云开发者社区​
+mirrors.aliyun.com图标
+
+清华大学：
+Tsinghua Open Source Mirror​
+mirrors.tuna.tsinghua.edu.cn图标
+
+具体方法如下：
+
+Ubuntu系统中，软件源文件地址为：/etc/apt/sources.list
+
+1.备份原来的源，将以前的源备份一下，以防以后可以用的。
+
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+
+2.打开/etc/apt/sources.list文件，在前面添加如下条目，并保存。
+
+sudo vim /etc/apt/sources.list（可将vim更换为自己熟悉的编辑器）
+
+#添加阿里源
+deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+#添加清华源
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse multiverse
+
+3.更新
+
+更新源
+
+sudo apt-get update
+
+如出现依赖问题，解决方式如下：
+
+sudo apt-get -f install
+
+更新软件：
+
+sudo apt-get upgrade
+
+附上网上找的各种源的地址：
+
+1.企业源：
+阿里云开源镜像站： http://mirrors.aliyun.com/
+搜狐开源镜像站：http://mirrors.sohu.com/
+网易开源镜像站：http://mirrors.163.com/
+
+2.教育源：
+重庆大学：
+http://mirrors.cqu.edu.cn/
+北京理工大学：
+http://mirror.bit.edu.cn (IPv4 only)
+http://mirror.bit6.edu.cn (IPv6 only)
+北京交通大学：
+http://mirror.bjtu.edu.cn (IPv4 only)
+http://mirror6.bjtu.edu.cn (IPv6 only)
+http://debian.bjtu.edu.cn (IPv4+IPv6)
+兰州大学：http://mirror.lzu.edu.cn/
+厦门大学：http://mirrors.xmu.edu.cn/
+上海交通大学：
+http://ftp.sjtu.edu.cn/ (IPv4 only)
+http://ftp6.sjtu.edu.cn (IPv6 only)
+清华大学：
+http://mirrors.tuna.tsinghua.edu.cn/ (IPv4+IPv6)
+http://mirrors.6.tuna.tsinghua.edu.cn/ (IPv6 only)
+http://mirrors.4.tuna.tsinghua.edu.cn/ (IPv4 only)
+天津大学：http://mirror.tju.edu.cn/
+中国科学技术大学：
+http://mirrors.ustc.edu.cn/ (IPv4+IPv6)
+http://mirrors4.ustc.edu.cn/
+http://mirrors6.ustc.edu.cn/
+西南大学：http://linux.swu.edu.cn/swudownload/Distributions/
+东北大学：
+http://mirror.neu.edu.cn/ (IPv4 only)
+http://mirror.neu6.edu.cn/ (IPv6 only)
+电子科技大学：http://ubuntu.uestc.edu.cn/
+青岛大学：http://mirror.qdu.edu.cn/
+开源中国社区 http://mirrors.oss.org.cn/
+大连东软信息学院 http://mirrors.neusoft.edu.cn/
+华中科技大学 http://mirrors.hust.edu.cn/
+中山大学 http://mirrors.sysu.edu.cn/
+清华大学学生网管会 http://mirrors.tuna.tsinghua.edu.cn/
+浙江大学 http://mirrors.zju.edu.cn/web/
+
+台湾淡江大学 http://ftp.tku.edu.tw/Linux/
+
+Linux运维派开源镜像 http://mirrors.skyshe.cn/
+
+各种源原始地址：中国Linux源镜像站大全 - starnight_cyber - 博客园
+编辑于 07-02
+
+
+linux内git安装
+https://www.cnblogs.com/lxm20145215----/p/5905765.html
+
+Ubuntu下git的安装与使用
+
+    Ubuntu下git的安装与使用与Windows下的大致相同，只不过个人感觉在Ubuntu下使用git更方便。
+
+    首先，确认你的系统是否已安装git，可以通过git指令进行查看，如果没有，在命令行模式下输入sudo apt-get install git命令进行安装。
+
+    安装完成后进行git配置，输入指令git config --global user.name "xxx"和 git config --global user.email "你的邮箱地址"
+
+    配置完成后，需要创建验证用的公钥，因为git是通过ssh的方式访问资源库的，所以需要在本地创建验证用的文件。使用命令ssh-keygen -C 'you email address@gmail.com' -t rsa（注意ssh与-keygen之间没有空格），会在用户目录~/.ssh/下建立相应的密钥文件。
+
+    创建完公钥后，需要上传。使用命令cd ~/.ssh进入~/.ssh文件夹，输入gedit id_rsa.pub打开id_rsa.pub文件，复制其中所有内容。接着访问http://git.oschina.net/profile网页，点击SSH公钥，标题栏可以随意输入，公钥栏把你刚才复制的内容粘贴进去就OK了。
+
+    可以使用ssh -T git@git.oschina.net命令来测试连接是否畅通。
+
+    接下来的内容就和在Windows下使用git上传一样了，先自己创建一个文件夹，把敲的代码拷贝进去（或者每次使用vim的时候直接切到该文件夹目录下进行编辑），先使用git init指令初始化一个git仓库，接着输入git add .添加文件，输入git commit -m "注释"提交至仓库。
+
+    输入git remote add origin https://git.oschina.net/你的用户名/项目名.git，git push origin master即可完成推送
+
