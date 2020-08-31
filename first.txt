@@ -1,146 +1,115 @@
-小结：现在总结一下今天学的两点内容：
-1、初始化一个Git仓库，使用git init命令；
-2、添加文件到Git仓库，分两步：
-1）使用命令git add <file>，注意，可反复多次使用，添加多个文件，实际上就是把文件修改添加到暂存区；
-2）使用命令git commit -m <message>，完成，实际上就是把暂存区的所有内容提交到当前分支，提交后暂存区就变成空白了（见picture3）。
-注：因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改；
-注：Git管理的是修改，而不是文件。
+1、git init 工作目录（文件夹或工作区）名；工作目录内生成一个名为.git的隐藏文件夹（Git的版本库不属于工作区的文件夹），版本库管理着工作区中文件的历次改动信息；
+2、git add   文件名1 文件名2 ...：把修改从工作区添加到暂存区；
+3、git commit       -m “message”：把暂存区里的改动提交到本地的版本库，提交后暂存区就变成空白了（见picture3）。
+//注：Git为我们自动创建第1个分支master；
+//注：Git的版本库里存了很多东西，其中最重要的就是暂存区（stage或叫index）；
+//注：指向master的1个指针叫HEAD。（见picture1）
+//注：修改的提交跟着分支走的；
+//注：Git管理的是修改，不是文件。
+4、git status：修改的文件或文件夹在工作区、暂存区的状态；（见picture2）
+5、git diff：查看尚未暂存的文件修改了哪些部分；
+6、git diff HEAD -- 文件名：工作区中的文件与最新版本库中记录的文件差异。
+//注：HEAD指向的版本库最新版本；
+7、git reset --hard commit_id（目标版本号）：将HEAD指向的位置改变为之前存在的某个版本；
+//注：commit_id可以是目标版本号如1094a，可是上一个版本HEAD^，可是上上一个版本HEAD^^，可是前n个版本HEAD~n；
+8、git log：按提交时间列出所有的版本提交，最近排在最上面。每次提价都有一个 SHA-1 校验和、作者的名字 和 电子邮件地址、提交时间，最后缩进一个段落显示提交说明；
+9、git log --pretty=oneline：以精简模式显示列出所有的版本提交；
+10、git reflog：查看所有分支的所有操作记录（包括已经被删除的 commit 记录和 reset 的操作）；
+11、若想撤销工作区的修改（或恢复工作区删除的文件）：git checkout -- 文件名；注：回到暂存区的状态（或者其实是用版本库里的版本替换工作区的版本）；注：从来没有被添加到版本库就被删除的文件，是无法恢复的；注：只能恢复文件到最新版本，会丢失最近一次提交后修改的内容；
+12、若修改已添加到暂存区，想撤销修改：首先把暂存区修改重新放回到工作区（git reset HEAD 文件名），然后在工作区将该修改撤销（git checkout -- 文件名）；注：回到最近一次git commit时的状态
+13、若修改已提交到版本库，想撤销修改：可回退到上一个版本，前提是本地库还未推送到远程库；
+14、删除文件提交进版本库：git add 与 git commit -m（或git rm 与 git commit -m）。
 
-小结
-1、要随时掌握工作区的状态，使用git status命令，实际上就是查看暂存区的状态。（见picture2）
-2、如果git status告诉你有文件被修改过，用git diff可以查看修改内容；
-3、git diff HEAD -- first.txt命令可以查看工作区和版本库里面最新版本的区别
+GitHub：
+1、注册GitHub账号；
+2、本地Git仓库和GitHub仓库之间的SSH加密传输设置；
+1）创建SSH Key：Shell（Windows下打开Git Bash）下敲击指令：ssh-keygen -t rsa -C "1033256287@qq.com"，然后一路回车；
+2）在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对；注：id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+3）登陆GitHub，打开“Account settings”——“SSH Keys”页面——点“Add SSH Key”——填上任意Title——Key文本框里粘贴id_rsa.pub文件的内容（见picture4）；
+注：GitHub只要知道了你的SSH公钥，就可以确认只有你自己才能推送；
+注：GitHub允许你添加多个SSH公钥，每台电脑一个SSH公钥；
+注：GitHub上免费托管的Git仓库，任何人都可以看到但不能修改；
+注：有两个办法让别人看不见GitHub上的Git仓库：一个是交点保护费，让GitHub把公开的仓库变成私有的，另一个办法是自己动手搭一个Git服务器。
+3、GitHub创建Git仓库：
+1）登陆GitHub——“Create a new repo”——创建1个新的仓库（见picture5）；
+2）在Repository name填入本地仓库的名字，其他保持默认设置，点击“Create repository”按钮；
+4、本地仓库与远程仓库关联（本地仓库下运行）
+1）git remote add origin https://github.com/Zhang-Feng-Fei/PCB.git（自己github仓库地址）；注：远程库的名字就叫origin，当然也可以改成别的。
+5、本地仓库的内容推送到GitHub仓库（本地仓库下运行）
+1）git push -u origin master；注：把当前分支master推送到远程；注：由于远程库是空的，首次推送时加上-u，Git还会把本地的master分支和远程的master分支关联起来。
+2）以后就可以用git push origin master推送了，不需要加-u了。
 
-小结
-1、HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id；例子：$ git reset --hard HEAD^；
-2、上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100；
-3、回到之后的版本：$ git reset --hard 1094a（版本号）；
-4、穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本；
-5、如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数：$ git log --pretty=oneline；
-6、要重返未来，用git reflog查看操作的命令历史，以便确定要回到未来的哪个版本。
+本机与GitHub首次连接：
+1）首次使用clone或push命令连接GitHub时，会弹出1个SSH警告，这是因为SSH首次连接，需要本机确认GitHub的Key是否真的来自GitHub服务器；
+2）输入yes回车，这样就把GitHub的Key添加到本机的一个信任列表里了；
+3）若担心有人冒充GitHub服务器，输入yes前可对照GitHub的RSA Key是否与SSH连接给出的一致。
 
-小结
-1、Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。（见picture1）
+GitHub远程库创建及克隆：
+1、创建1个GitHub远程仓库，命名为gitskills；（见picture6）
+2、使用git clone命令克隆远程仓库出来1个本地库，例：git clone https://github.com/Zhang-Feng-Fei/gitskills.git（或git@github.com:Zhang-Feng-Fei/gitskills.git）；
+注：Git支持多种协议
+1）默认ssh协议；
+2）也可是https协议，缺点：传输速度慢、每次推送都必须输入口令。
 
-小结
-1、若未添加到暂存区，想退回到修改前：$ git checkout -- test.txt可以把test.txt在工作区的修改全部撤销；
-2、若已添加到暂存区，想退回到修改前；首先git reset HEAD <file>可以把暂存区修改重新放回到工作区，然后同第1不操作；
-3、若暂存区提交到了版本库，想退回到修改前，可回退到上一个版本。前提是本地版本库还未推送到远程。
-注：就是让这个文件回到最近一次git commit或git add时的状态。
+创建与切换分支、当前分支修改提交、分支合并、删除创建的分支：
+1、默认都有1个master（主）分支；
+2、HEAD指向的是当前分支，分支才指向提交；（见picture7）
+3、创建dev分支并使HEAD指向dev分支（git checkout -b dev或git switch -c dev或git branch dev +  git checkout dev），目前dev分支与master分支指向相同的提交；（见picture8）
+4、查看所有分支及当前分支：git branch；
+5、在dev分支执行修改提交工作；（见picture9）
+6、切换到master分支：git checkout master或git switch master；（见picture12）
 
-小结
-1、工作区文件删错了，可把版本库内的文件恢复到工作区：$ git checkout -- test.txt；
-2、git checkout其实是用版本库里的版本替换工作区的版本。
-注：从来没有被添加到版本库就被删除的文件，是无法恢复的！
-注：只能恢复文件到最新版本，会丢失最近一次提交后修改的内容。
+2分支指向1条直线不同提交时的合并
+1、dev分支合并到master分支上：git merge dev；（见picture10）
+2、删除dev分支（指针）：git branch -D dev（强制删除）或git branch -d dev（有条件删除，条件是合并完成的分支）；此时只剩master分支；（见picture11）
+注：分支不同的相同文件，文件内容可能不同；
+注：dev分支与master分支修改都提交，才能正常合并；
 
-注：
-1、工作区：相当于windows系统中的一个文件夹；
-2、工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库；
-3、版本库管理着工作区中文件的历次改动信息；
-4、删除文件也是一种修改，也需要进行git add 与 git commit -m操作或者git rm 与 git commit -m从版本库中删除该文件。
+2分支指向分叉提交时的合并（手动修改master分支文件内容）
+1、当2个分支都进行了修改提交，2个分支指向了不同的提交；（见picture13）
+2、首先查找冲突文件：git merge feature1或git status；
+3、冲突文件解决办法：
+1）打开冲突文件，在冲突文件内已经用<<<<<<<，=======，>>>>>>>标记出冲突的部分；
+2）将master分支冲突文件的冲突内容修改成与dev分支一致，然后提交master分支；
+3）dev分支与master分支就如图。（见picture14）
+4、查看分支合并情况：git log --graph --pretty=oneline --abbrev-commit或git log --pretty=oneline --abbrev-commit；
+注：合并就是让2个分支指向相同的递交。
+注：默认“快进模式”（Fast-forward）合并，就是把master分支指向dev分支当前提交，缺点：分支删掉后分支信息会丢失；
 
+2分支指向分叉提交时的合并（禁用“快进模式”（Fast-forward））
+1、强制禁用“快进模式”（Fast-forward）模式：git merge --no-ff -m "merge with no-ff" dev；
+2、--no-ff就是强制禁用Fast forward模式；
+3、-m "merge with no-ff"就是生成1个新的提交；
+4、这样2分支合并且产生了新的提交，而且dev分支也删掉了；（见picture15）
+5、当git log（查看分支历史）时，仍然可以看到dev分支修改的一系列信息。
 
-
-
-
-
-1、只要注册一个GitHub账号，就可以免费获得Git远程仓库；
-2、注册GitHub账号；
-3、本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，需要以下操作：
-1）创建SSH Key：打开Shell（Windows下打开Git Bash），敲击指令：$ ssh-keygen -t rsa -C "youremail@example.com"；
-注：然后一路回车，使用默认值即可，也无需设置密码；之后用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
-2）登陆GitHub，打开“Account settings”，“SSH Keys”页面----点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：（见picture4）
-注：因GitHub需要识别出你推送的提交确实是你推送的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送；当然，GitHub允许你添加多个Key。假定你有若干电脑，你一会儿在公司提交，一会儿在家里提交，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。
-注：GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）；有两个办法让别人看不见：一个是交点保护费，让GitHub把公开的仓库变成私有的，另一个办法是自己动手搭一个Git服务器。
-
-
-添加远程仓库：
-1、登陆GitHub，然后，在右上角找到“Create a new repo”按钮，创建一个新的仓库（见picture5）
-2、在Repository name填入本地仓库的名字，其他保持默认设置，点击“Create repository”按钮；
-1）远程仓库克隆出新的仓库
-2）可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库，在本地的learngit仓库下运行下面的命令
-例子：
-git remote add origin https://github.com/Zhang-Feng-Fei/PCB.git
-git branch -M master
-git push -u origin master
-注：请千万注意，把上面的michaelliao替换成你自己的GitHub账户名，否则，你在本地关联的就是我的远程库，关联没有问题，但是你以后推送是推不上去的，因为你的SSH Key公钥不在我的账户列表中。（这个可以不看）
-注：添加后，远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库。
-注：把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
-注;由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
-3）从现在起，只要本地作了提交，就可以通过命令：$ git push origin master
-
-注：
-SSH警告：当你第一次使用Git的clone或者push命令连接GitHub时，会得到一个警告：这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入yes回车即可。
-Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一个信任列表里了：这个警告只会出现一次，后面的操作就不会有任何警告了。如果你实在担心有人冒充GitHub服务器，输入yes前可以对照GitHub的RSA Key的指纹信息是否与SSH连接给出的一致。
-
-1、先创建远程库，然后从远程库克隆
-2、登陆GitHub，创建一个新的仓库，名字叫gitskills：（见picture6）
-3、远程库gitskills已经准备好了，下一步是用命令git clone克隆出一个本地库：git clone https://github.com/Zhang-Feng-Fei/gitskills.git（这个是抓取或推送的远程仓库地址）
-注：GitHub给出的地址不止一个，还可以用git@github.com:Zhang-Feng-Fei/gitskills.git，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议，使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
-
-
-分支：
-1、master分支（主分支）。HEAD严格来说不是指向提交，而是指向master，master（主分支）才是指向提交的，所以，HEAD指向的就是当前分支（见picture7）
-2、Git新建了一个指针叫dev（分支），指向master相同的提交，再把HEAD指向dev，HEAD指向当前分支是dev：（见picture8）
-注：Git创建一个分支：增加一个dev指针，改边HEAD的指向
-3、执行分支工作时（见picture9）
-4、dev分支工作完成后，把dev分支合并到master主分支上（见picture10）；注：就改改指针，工作区内容也不变！
-5、合并完分支后，可以删除dev分支就是把dev指针给删掉，删掉后，我们就剩下了一条master分支（见picture11）；
-创建、删除、合并分支的指令：
-1、创建并切换到分支：$ git checkout -b dev或者$ git switch -c dev  注：在cmd界面输入
-注：相当于以下2条指令
-$ git branch dev
-$ git checkout dev
-2、查看当前分支：$ git branch
-3、在当前分支进行文件的修改、提交工作$ git add readme.txt 、$ git commit -m "branch test"
-4、分支切换到主分支$ git checkout master或者$ git switch master；分支不同的相同文件，文件内容是不同的；（见picture12）
-5、分支合并到主分支上$ git merge dev；注：合并前需要将分支及主分支上的文件都提交，才能正常合并
-注：Fast-forward信息，Git告诉我们，这次合并是“快进模式”，也就是直接把master指向dev的当前提交，所以合并速度非常快；当然，也不是每次合并都能Fast-forward，我们后面会讲其他方式的合并。
-6、删除分支：$ git branch -D dev（强制删除）；$ git branch -d dev（有条件删除，前提是合并完成的分支）
-
-1、两分支中都对文件进行了修改，并且都进行了提交，会变成（见picture13）图中样式；
-2、这种情况分支无法快速合并，快速合并会有冲突；$ git merge feature1或$ git status可以查看冲突文件
-3、两个分支相同文件冲突的解决办法：这个时候两个分支修改的内容自动填充进来，用<<<<<<<，=======，>>>>>>>标记出不同分支的内容
-4、这个时候可以修改文件内容与一个分支的文件一致，然后提交不一致的分支；
-5、最后再进行合并（见picture14）
-6、用带参数的git log也可以看到分支的合并情况：$ git log --graph --pretty=oneline --abbrev-commit 或git log --pretty=oneline --abbrev-commit
-注：合并了不删除分支还是存在的，不是合并后分支就自动消失了，合并只是把两个分支相同的文件的内容整合到一起
-注：解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交
-
-
-1、分支合并时，默认Fast forward模式，缺点：分支删掉后分支信息会丢失
-2、可强制禁用Fast forward模式，在merge（合并）时生成一个新commit，当git log（查看分支历史）时，即使分支删掉也可以看到分支修改的一系列信息。（见picture15）
-方法：git merge --no-ff -m "merge with no-ff" dev；注：--no-ff就是强制禁用Fast forward模式，-m "merge with no-ff"就是生成一个新的commit
 分支管理基本原则：
 1、master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
-2、都在dev分支上干活，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+2、都在dev分支上干活，dev分支是不稳定的，比如1.0版本需要发布时，再把dev分支合并到master上，在master分支发布1.0版本；
 3、你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
-4、团队合作的分支看起来就像这样（见picture16）。
+4、团队合作的分支看起来就像这样。（见picture16）
 
-Bug分支
-1、遇到Bug时，新建Bug临时分支，修改完Bug后合并，删除Bug分支
-2、当工作区仍未提交（比如：工作只进行到一半，但这时需要先修改Bug），使用：$ git stash，将工作区保存起来（就是将文件中还未提交到暂存区的内容保存到其它地方，此时文件中没有了之前编辑且还在工作区的内容）
-3、这样就可以修复更久之前编辑内容中的Bug：
-1）切换主分支——创建并切换进Bug分支
-2）修改完Bug后，保存——提交工作区——提交暂存区——提交进库
-3）切换到主分支——合并Bug分支——删除Bug分支
-4）使用Bug分支修改完主分支的Bug后，切换dev进分支——接着干分支的活
+Bug分支管理基本原则：
+1、遇到Bug时，新建Bug临时分支，修改完Bug后合并，删除Bug分支；
+2、当dev分支工作区未提交且需要修改master分支的bug，先将dev分支工作区的内容保存起来：git stash；注：就是将文件中还未提交到暂存区的内容保存到其它地方，此时文件中没有了之前编辑且还在工作区的内容；
+3、修复更久之前的Bug：
+1）切换到master分支——————创建并切换进Bug分支；
+2）修改Bug后——————保存进工作区——————提交进暂存区————————提交进本地库；
+3）切换到master分支——————Bug分支合并master分支——————删除Bug分支；
+4）master分支的Bug修改完——————切换进dev分支——————接着干dev分支的活；
+4、将dev分支工作区内容恢复
+1）查看dev分支工作区的内容现在保存在哪：git stash list；
+2）将保存的内容恢复到dev分支的工作区：git stash apply（不删除保存区内容，可用git stash drop去删除）或git stash pop（同时删除保存区内容）；
+3）若进行过多次git stash，可指定删除哪个stash： git stash apply stash@{0}。
 
-5）查看之前dev分支保存的工作区的内容现在在哪：$ git stash list
-6）恢复保存内容到dev分支的工作区：git stash apply（不删除保存区内容，可用git stash drop去删除）或git stash pop（同时删除保存区内容）
-7）若进行过多次git stash，可指定删除哪个stash： git stash apply stash@{0}
+
+
 
 4、主分支修改完Bug，怎样修改dev分支同样的Bug：$ git cherry-pick 4c805e2（主分支修改这次Bug所起的名字）
 注：dev分支改动名字，与主分支改动名字是不一样的，虽然两个改动的是同一个地方，改动的内容也相同
-
-
 注：只有文件保存后（编辑内容才会进工作区），工作区的文件才真正被认定为修改，才能传进暂存区，最后提交进库中
 注：只在一个分支修改（主分支也不修改时），回到主分支后，可以直接合并分支进主分支
-
 注：Git还会自动提示我们当前master分支比远程的master分支要超前1个提交。
-
-
 
 Feature分支
 1、程序每添加一个新功能，最好新建一个feature分支：在该分支上开发，完成后合并进主分支，最后删除该分支；
@@ -168,7 +137,6 @@ Rebase
 
 注意：本地库名、远程库名、分支名、分支的最新提交位置、本地分支可以比远程分支早提交几个改变（比如：用户自己的本地提交，或者用户远程抓取的别人的提交，都会改变本地提交次数，但自己记录的远程提交还没修改）
 
-
 标签：
 1、Git的标签（tag）虽然是版本库的快照，但其实它就是指向某个commit的指针（跟分支很像对不对？但是分支可以移动，标签不能移动）
 2、所以，创建和删除标签都是瞬间完成的；
@@ -190,7 +158,6 @@ Rebase
 删除远程标签：先删除本地标签git tag -d v0.9，然后远程删除标签git push origin :refs/tags/v0.9
 注：创建的标签都只存储在本地，不会自动推送到远程
 
-
 使用GitHub
 github上克隆别人开源的项目（仓库）
 1、进入别人的github库，登录自己的github账号，点“Fork”就在自己的github账号下克隆该开源的项目（仓库）（见picture18）
@@ -208,12 +175,9 @@ github上克隆别人开源的项目（仓库）
 再关联Gitee的远程库：git remote add gitee git@gitee.com:Zhang-Feng-Fei/PCB.git       远程库的名称叫gitee
 4、要推送到Github与Gitee分别指令：git push github master、git push gitee master
 
-
 注：一个本地库多个远程库，见picture23
 
 注：Gitee也同样提供了Pull request功能，可以让其他小伙伴参与到开源项目中来。你可以通过Fork我的仓库：https://gitee.com/liaoxuefeng/learngit，创建一个your-gitee-id.txt的文本文件， 写点自己学习Git的心得，然后推送一个pull request给我，这个仓库会在Gitee和GitHub做双向同步。
-
-
 
 自定义git
 让Git显示颜色：git config --global color.ui true
@@ -237,12 +201,10 @@ github上克隆别人开源的项目（仓库）
 删除别名：别名就在[alias]后面，要删除别名，直接把配置文件对应的行删掉即可
 每个电脑（用户）的git配置文件放在用户主目录下的一个隐藏文件.gitconfig
 
-搭建Git服务器作为私有仓库使用
+搭建Git服务器作为私有仓库使用（详见wps文档，后期整理）
 
-
-
+git gui软件SourceTree学习
 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCbhQqdEZSgRwJ/k9q8j5mjB9tHT765M9U1fcS47V/wpDVyyfe8TIiioBcKDD+c2xWdn5Quh7tET7IJdzHrqYcEAwBRs2SzqhCoATTfkdqNOPXkYNp1YYa1hNj7wtKjtKlgcjrmaBc9gr6COCWK/vYinZ6jW/RhWB0/aE0sos3rdkuOFzd9pfJ5Yx7bKSm2hC5/YnC4fGzJBuLdXeMYlbF3NsPdtdf9/4YyjfJOqQCxBAO5o4rLW4WYQwwbf27zzI/59HpT/KevDMLnK70AxOAwTSx0tNpyHx0NPHUTxFXuTyptza26rMMqjpu9GcQwD/tQACi/eOJATnDYoS3Z4jFdeahgoz74DUwxZwqAsNQazNtmIgUx7lDtFGiWLUBHEUCUC0uQGzHzkADcjsWLalXicOdA4C6ah/9N27KrGsQyIfRwLXazHYcD8LqhPVFpYEjWbPyMPLybkxxl7GHl1hH947YpO62ZabUkhfZkbxPICO23SMabY5cL2C1V4lbb5Uk= 1033256287@qq.com
-
 
 详见网址：https://www.liaoxuefeng.com/wiki/896043488029600/900004111093344
