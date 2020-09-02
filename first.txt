@@ -20,33 +20,33 @@
 13、若修改已提交到版本库，想撤销修改：可回退到上一个版本，前提是本地库还未推送到远程库；
 14、删除文件提交进版本库：git add 与 git commit -m（或git rm 与 git commit -m）。
 
-GitHub：
-1、注册GitHub账号；
-2、本地Git仓库和GitHub仓库之间的SSH加密传输设置；
+GithHub：
+1、注册GithHub账号；
+2、本地Git仓库和GithHub仓库之间的SSH加密传输设置；
 1）创建SSH Key：Shell（Windows下打开Git Bash）下敲击指令：ssh-keygen -t rsa -C "1033256287@qq.com"，然后一路回车；
 2）在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对；注：id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
-3）登陆GitHub，打开“Account settings”——“SSH Keys”页面——点“Add SSH Key”——填上任意Title——Key文本框里粘贴id_rsa.pub文件的内容（见picture4）；
-注：GitHub只要知道了你的SSH公钥，就可以确认只有你自己才能推送；
-注：GitHub允许你添加多个SSH公钥，每台电脑一个SSH公钥；
-注：GitHub上免费托管的Git仓库，任何人都可以看到但不能修改；
-注：有两个办法让别人看不见GitHub上的Git仓库：一个是交点保护费，让GitHub把公开的仓库变成私有的，另一个办法是自己动手搭一个Git服务器。
-3、GitHub创建Git仓库：
-1）登陆GitHub——“Create a new repo”——创建1个新的仓库（见picture5）；
+3）登陆GithHub，打开“Account settings”——“SSH Keys”页面——点“Add SSH Key”——填上任意Title——Key文本框里粘贴id_rsa.pub文件的内容（见picture4）；
+注：GithHub只要知道了你的SSH公钥，就可以确认只有你自己才能推送；
+注：GithHub允许你添加多个SSH公钥，每台电脑一个SSH公钥；
+注：GithHub上免费托管的Git仓库，任何人都可以看到但不能修改；
+注：有两个办法让别人看不见GithHub上的Git仓库：一个是交点保护费，让GithHub把公开的仓库变成私有的，另一个办法是自己动手搭一个Git服务器。
+3、GithHub创建Git仓库：
+1）登陆GithHub——“Create a new repo”——创建1个新的仓库（见picture5）；
 2）在Repository name填入本地仓库的名字，其他保持默认设置，点击“Create repository”按钮；
 4、本地仓库与远程仓库关联（本地仓库下运行）
-1）git remote add origin https://github.com/Zhang-Feng-Fei/PCB.git（自己github仓库地址）；注：远程库的名字就叫origin，当然也可以改成别的。
-5、本地仓库的内容推送到GitHub仓库（本地仓库下运行）
+1）git remote add origin https://GithHub.com/Zhang-Feng-Fei/PCB.git（自己GithHub仓库地址）；注：远程库的名字就叫origin，当然也可以改成别的。
+5、本地仓库的内容推送到GithHub仓库（本地仓库下运行）
 1）git push -u origin master；注：把当前分支master推送到远程；注：由于远程库是空的，首次推送时加上-u，Git还会把本地的master分支和远程的master分支关联起来。
 2）以后就可以用git push origin master推送了，不需要加-u了。
 
-本机与GitHub首次连接：
-1）首次使用clone或push命令连接GitHub时，会弹出1个SSH警告，这是因为SSH首次连接，需要本机确认GitHub的Key是否真的来自GitHub服务器；
-2）输入yes回车，这样就把GitHub的Key添加到本机的一个信任列表里了；
-3）若担心有人冒充GitHub服务器，输入yes前可对照GitHub的RSA Key是否与SSH连接给出的一致。
+本机与GithHub首次连接：
+1）首次使用clone或push命令连接GithHub时，会弹出1个SSH警告，这是因为SSH首次连接，需要本机确认GithHub的Key是否真的来自GithHub服务器；
+2）输入yes回车，这样就把GithHub的Key添加到本机的一个信任列表里了；
+3）若担心有人冒充GithHub服务器，输入yes前可对照GithHub的RSA Key是否与SSH连接给出的一致。
 
-GitHub远程库创建及克隆：
-1、创建1个GitHub远程仓库，命名为gitskills；（见picture6）
-2、使用git clone命令克隆远程仓库出来1个本地库，例：git clone https://github.com/Zhang-Feng-Fei/gitskills.git（或git@github.com:Zhang-Feng-Fei/gitskills.git）；
+GithHub远程库创建及克隆：
+1、创建1个GithHub远程仓库，命名为gitskills；（见picture6）
+2、使用git clone命令克隆远程仓库出来1个本地库，例：git clone https://GithHub.com/Zhang-Feng-Fei/gitskills.git（或git@GithHub.com:Zhang-Feng-Fei/gitskills.git）；
 注：Git支持多种协议
 1）默认ssh协议；
 2）也可是https协议，缺点：传输速度慢、每次推送都必须输入口令。
@@ -120,7 +120,7 @@ Feature分支管理基本原则：
 注：推送本地仓库分支的原则
 1）master分支、dev分支（开发分支，团队所有成员都需要在上面工作）都需要推送；
 2）bug分支（除非老板要看看你每周到底修复了几个bug）、feature分支（你是否和你的小伙伴合作在上面开发）可不推送。
-4、抓取远程仓库分支到本地仓库：git clone https://github.com/Zhang-Feng-Fei/gitskills.git；注：只能抓取maste分支；
+4、抓取远程仓库分支到本地仓库：git clone https://GithHub.com/Zhang-Feng-Fei/gitskills.git；注：只能抓取maste分支；
 5、本地仓库创建打开dev分支，并抓取远程仓库dev分支：git checkout -b dev origin/dev；
 6、本地仓库dev分支推送到远程仓库dev分支
 1）指定本地仓库dev分支与远程仓库origin/dev分支的链接：git branch --set-upstream-to=origin/dev dev；
@@ -145,54 +145,50 @@ Feature分支管理基本原则：
 标签：
 1、标签（tag）其实是指向某个固定commit的指针（类似分支，但是分支可以移动）；
 2、创建和删除标签都是瞬间完成的；
-3、标签作用快速找到之前版本。
+3、标签作用快速找到之前版本；
+4、创建标签：切换到需要打标签的分支上——————打一个新标签：git tag v1.0；
+5、查看所有标签：git tag；
+5、历史commit id打标签：git tag v0.9 f52c633（需要打标签的commit id）；
+6、查看标签详细信息：git show v0.9（标签名）；
+7、创建带有说明的标签：git tag -a v0.1 -m "version 0.1 released" 1094adb（-a指定标签名，-m指定说明文字）。
+注
+1）默认标签是打在最新提交的commit上的；
+2）标签不是按时间顺序列出，而是按字母排序的；
+3）如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个commit的标签。
+8、删除标签：git tag -d v0.1；
+9、标签推送到远程：git push origin v1.0；
+10、一次性推送全部尚未推送的本地标签到远程：git push origin --tags；
+11、删除远程标签：先删除本地标签git tag -d v0.9，然后远程删除标签git push origin :refs/tags/v0.9。
+注：
+1）创建的标签都只存储在本地，不会自动推送到远程。
 
-
-
-
-创建标签：切换到需要打标签的分支上——打一个新标签（git tag v1.0）
-查看所有标签：git tag
-历史提交的commit id打标签：git tag v0.9 f52c633（需要打标签的commit id）
-查看标签信息：git show v0.9（标签名）
-创建带有说明的标签：git tag -a v0.1 -m "version 0.1 released" 1094adb（-a指定标签名，-m指定说明文字）
-注：默认标签是打在最新提交的commit上的
-注：标签不是按时间顺序列出，而是按字母排序的
-注：如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签
-
-操作标签
-删除标签：git tag -d v0.1
-标签推送到远程：git push origin v1.0
-一次性推送全部尚未推送到远程的本地标签：git push origin --tags
-删除远程标签：先删除本地标签git tag -d v0.9，然后远程删除标签git push origin :refs/tags/v0.9
-注：创建的标签都只存储在本地，不会自动推送到远程
-
-使用GitHub
-github上克隆别人开源的项目（仓库）
-1、进入别人的github库，登录自己的github账号，点“Fork”就在自己的github账号下克隆该开源的项目（仓库）（见picture18）
-2、然后要从自己的账号下clone仓库（才能推送修改）：git clone https://github.com/Zhang-Feng-Fei/bootstrap.git
-注：Bootstrap的官方仓库twbs/bootstrap、你在GitHub上克隆的仓库my/bootstrap，以及你自己克隆到本地电脑的仓库，他们的关系（见picture19）
-注：修改了bootstrap后，可自己的bootstrap仓库推送。如果你希望bootstrap的官方库能接受你的修改，你就可以在GitHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了。（见picture20）
+使用GithHub上克隆别人的开源项目（仓库）
+1、进入别人的GithHub仓库——————登录自己GithHub账号——————点“Fork”（就克隆了别人的开源项目到自己的GithHub账号下）；（见picture18）
+2、本地仓库clone自己远程仓库下刚刚获取到的开源项目：git clone https://GithHub.com/Zhang-Feng-Fei/bootstrap.git；
+注：
+1）Bootstrap的官方仓库twbs/bootstrap、你在GithHub上克隆的仓库my/bootstrap，以及你自己克隆到本地电脑的仓库，他们的关系；（见picture19）
+2）本地修改了bootstrap后，可向自己的远程bootstrap仓库推送，如果你希望bootstrap的官方库能接受你的修改，你就可以在GithHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了。（见picture20）
 
 使用Gitee
-1、使用国内的Git托管服务——Gitee（gitee.com），解决github慢的问题
-2、Gitee注册登录账号，上传自己的SSH公钥（见picture21）进行关联git remote add origin https://gitee.com/Zhang-Feng-Fei/PCB.git或git remote add origin git@gitee.com:Zhang-Feng-Fei/PCB.git
-如果报错：因本地库已经关联了origin的远程库（该远程库指向GitHub），可以删除已有的GitHub远程库：git remote rm origin，再关联Gitee的远程库
-3、本地库同时关联Gitee、Github远程库：git给远程库起的默认名称是origin，如果有多个远程库，我们需要用不同的名称来标识不同的远程库
-先删除已关联的名为origin的远程库：git remote rm origin
-再关联GitHub的远程库：git remote add github git@github.com:Zhang-Feng-Fei/PCB.git  远程库的名称叫github
-再关联Gitee的远程库：git remote add gitee git@gitee.com:Zhang-Feng-Fei/PCB.git       远程库的名称叫gitee
-4、要推送到Github与Gitee分别指令：git push github master、git push gitee master
-
-注：一个本地库多个远程库，见picture23
-
-注：Gitee也同样提供了Pull request功能，可以让其他小伙伴参与到开源项目中来。你可以通过Fork我的仓库：https://gitee.com/liaoxuefeng/learngit，创建一个your-gitee-id.txt的文本文件， 写点自己学习Git的心得，然后推送一个pull request给我，这个仓库会在Gitee和GitHub做双向同步。
+1、使用国内的Git托管服务——Gitee（Gitee.com），解决GithHub慢的问题
+2、Gitee注册账号后登录，上传自己的SSH公钥到Gitee，然后本地仓库与Gitee仓库进行关联：git remote add origin https://Gitee.com/Zhang-Feng-Fei/PCB.git或git remote add origin git@Gitee.com:Zhang-Feng-Fei/PCB.git；（见picture21）
+注：关联时若报错，因为本地库已经关联了GithHub的origin远程库，可以删除已有的GithHub远程库：git remote rm origin，再关联Gitee的远程库。
+3、本地库同时关联Gitee、GithHub远程库：
+1）本地仓库关联远程库时，给远程库起的默认名称是origin，如果有多个远程库，我们需要用不同的名称来标识不同的远程库；
+2）先删除已关联的名为origin的远程库：git remote rm origin；
+3）再关联GithHub的远程库：git remote add GithHub git@GithHub.com:Zhang-Feng-Fei/PCB.git  远程库的名称叫GithHub；
+4）再关联Gitee的远程库：git remote add Gitee git@Gitee.com:Zhang-Feng-Fei/PCB.git       远程库的名称叫Gitee。
+4、分别推送修改到GithHub与Gitee的指令：git push GithHub master、git push Gitee master。
+注：
+1）一个本地库可关联多个远程库；（见picture23）
+2）Gitee也同样提供了Pull request功能，可以让其他小伙伴参与到开源项目中来。把别人的Gitee仓库Fork进我的Gitee，然后本地修改该Gitee仓库后推送进我的远程Gitee，最后推送一个pull request给别人的Gitee。
 
 自定义git
-让Git显示颜色：git config --global color.ui true
+1、让Git显示颜色：git config --global color.ui true
 
 忽略特殊文件：在Git工作目录中，但又想提交，git status一直有提示怎么办？
 在Git工作区的根目录下创建一个特殊的.gitignore文件（文件内填入要隐藏的文件或者文件类型的所有文件或目录），然后把要忽略的文件名填进去，Git就会自动忽略这些文件
-注：GitHub已经为我们准备了各种配置文件，只需要组合一下就可以使用了。所有配置文件可以直接在线浏览：https://github.com/github/gitignore
+注：GithHub已经为我们准备了各种配置文件，只需要组合一下就可以使用了。所有配置文件可以直接在线浏览：https://GithHub.com/GithHub/gitignore
 忽略文件的原则是：
 1、忽略操作系统自动生成的文件，比如缩略图等；
 2、忽略编译生成的中间文件、可执行文件等；
@@ -213,6 +209,4 @@ github上克隆别人开源的项目（仓库）
 
 git gui软件SourceTree学习
 
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCbhQqdEZSgRwJ/k9q8j5mjB9tHT765M9U1fcS47V/wpDVyyfe8TIiioBcKDD+c2xWdn5Quh7tET7IJdzHrqYcEAwBRs2SzqhCoATTfkdqNOPXkYNp1YYa1hNj7wtKjtKlgcjrmaBc9gr6COCWK/vYinZ6jW/RhWB0/aE0sos3rdkuOFzd9pfJ5Yx7bKSm2hC5/YnC4fGzJBuLdXeMYlbF3NsPdtdf9/4YyjfJOqQCxBAO5o4rLW4WYQwwbf27zzI/59HpT/KevDMLnK70AxOAwTSx0tNpyHx0NPHUTxFXuTyptza26rMMqjpu9GcQwD/tQACi/eOJATnDYoS3Z4jFdeahgoz74DUwxZwqAsNQazNtmIgUx7lDtFGiWLUBHEUCUC0uQGzHzkADcjsWLalXicOdA4C6ah/9N27KrGsQyIfRwLXazHYcD8LqhPVFpYEjWbPyMPLybkxxl7GHl1hH947YpO62ZabUkhfZkbxPICO23SMabY5cL2C1V4lbb5Uk= 1033256287@qq.com
-
-详见网址：https://www.liaoxuefeng.com/wiki/896043488029600/900004111093344
+廖雪峰网址：https://www.liaoxuefeng.com/wiki/896043488029600/900004111093344
